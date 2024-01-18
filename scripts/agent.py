@@ -716,6 +716,8 @@ class Agent:
                 elif next_direction == 4:
                     next_direction = 1
                 
+                
+                
                 self.direction = next_direction
                 if self.debug_mode:
                     print('I choose the next direction')
