@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="13.3">
+  <help_text>title:example
+
+Start
+</help_text>
+  <zoom_level>12</zoom_level>
+  <element>
+    <type>com.baselet.element.old.allinone.ActivityDiagramText</type>
+    <coordinates>
+      <x>0</x>
+      <y>0</y>
+      <w>3708</w>
+      <h>1992</h>
+    </coordinates>
+    <panel_attributes>title:Strategy 2
+Start
+
+Initialize attributes
+Choose random direction
+Exploration Mode ON
+Wait for other agents
+
+While[PoI list uncomplete]
+	Fork
+		Recieve message
+		If 
+			[type 0]
+			Update map
+			Update PoI list
+			
+			[type 1 or 2]
+			Update position
+			Update map
+			
+			[type 3]
+			Update connected agent
+
+			[type 4]
+			Update number of agent
+			
+			[type 5]
+			Get PoI data
+		EndIf
+			
+
+		Get case properties
+		Update previous data
+		If
+			[case = 0 and explo mode ON]
+			If
+				[front case unexplored]
+
+				[front case explored]
+				If
+					[one case unexplored around]
+					Go toward its direction
+
+					[no case unexplored around]
+					If
+						[wall]
+						Choose random direction
+
+						[no wall]
+					EndIf
+				EndIf
+			EndIf	
+			
+			[case != 0 or explo mode OFF]
+			Set explo mode to OFF
+			If
+				[case = 1]
+				Get PoI data
+				Update PoI list
+				Update map
+				Send message to other
+				Set explo mode to ON
+
+				[case != 1]
+				If
+					[first approach]
+					Deactivate diagonal move
+
+					[no first approach]
+					If 
+						[case value increase]
+
+						[case value decrease]
+						Turn backward
+						
+						[case value is the same]
+						Turn to right
+						
+					EndIf
+				EndIf
+			EndIf
+		EndIf
+		Step toward current direction
+	Sync
+	
+Compute best path to key
+Go to key
+Compute best path to chest
+Go to chest
+	
+
+
+End
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

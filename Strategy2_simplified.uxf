@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="13.3">
+  <help_text>title:example
+
+Start
+</help_text>
+  <zoom_level>6</zoom_level>
+  <element>
+    <type>com.baselet.element.old.allinone.ActivityDiagramText</type>
+    <coordinates>
+      <x>186</x>
+      <y>0</y>
+      <w>629</w>
+      <h>461</h>
+    </coordinates>
+    <panel_attributes>title:Strategy 2
+Start
+
+Initialize agent
+
+While[PoI list uncomplete]
+	Fork
+		Handle incomming messages
+			
+
+		Get case properties
+		Update previous data
+		If
+			[case = 0 and explo mode ON]
+			Exploration mode
+			
+			[case != 0 or explo mode OFF]
+			Prospection mode
+		EndIf
+		Step toward current direction
+	Sync
+	
+Reaching mode
+	
+End
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
