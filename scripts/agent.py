@@ -3,15 +3,13 @@ __copyright__ = "Copyright 2023, IN512, IPSA 2023"
 __credits__ = ["Aybuke Ozturk Suri", "Johvany Gustave"]
 __license__ = "Apache License 2.0"
 __version__ = "1.0.0"
-
-
-
 #                          _
-#    ___  ___  ___  _ __  | |     ___
-#   / _ |/ _ |/ _ \| /_ \ | _\   |
-#  | (_|| (_||  __/| / \ || |  _ |
-#   \___|\__ |\__\ |_| |_|\__\|_||
-#        /__/
+#    ___  ___  ___  _ __  | |    ___  _  _
+#   / _ |/ _ |/ _ \| /_ \ | _\  | _ \| || |
+#  | (_|| (_||  __/| / \ || |  _||_) | \/ |
+#   \___|\__ |\__\ |_| |_|\__\|_|  _/\__  /
+#        /__/                   |_|  /___/
+
 
 from network import Network
 from my_constants import *
@@ -89,7 +87,7 @@ class Agent:
             print('I retrieve nb of agent')
         time.sleep(0.5)
         # Choosing strategy
-        self.strategy3()
+        self.strategy2()
 
     def msg_cb(self): 
         """ Method used to handle incoming messages """
