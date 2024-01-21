@@ -3,7 +3,6 @@ from PyYel.Networks.Compiler import Trainer, Tester, Loader
 from PyYel.Networks.Models import CNNx2, CNNx3
 from PyYel.Data.Datapoint import Datatensor, YelDataset, YelDatapoint
 
-from dataset_main import generateTrainingDataset
 
 import os
 import numpy as np
@@ -11,9 +10,10 @@ import sys
 import torch
 
 # %% DEVELOPMENT
-
+num_epochs=10000
 if __name__ == "__main__":
-        
+    from dataset_main import generateTrainingDataset
+
     X, Y = generateTrainingDataset(batch_size=1000, flatten=False)
 
     print(X.shape, Y.shape)
@@ -35,16 +35,16 @@ if __name__ == "__main__":
 
 if __name__ == "__main__" and "training" in sys.argv:
 
-    model = CNNx3(in_channels=1, filters=8, hidden_layers=64, input_size=22, output_size=4)
+    model = CNNx3(in_channels=1, filters=1, hidden_layers=16, input_size=22, output_size=4, p=0.2)
     model_name = "CNNx3"
 
-    trainer = Trainer(model=model, train_dataloader=train_dataloader, test_dataloader=test_dataloader, num_epochs=2000,
+    trainer = Trainer(model=model, train_dataloader=train_dataloader, test_dataloader=test_dataloader, num_epochs=num_epochs, lr=0.001,
             model_name=model_name, output_path=os.path.join(os.path.dirname(__file__), "Models"))
     trainer.runPipeline()
 
 if __name__ == "__main__" and "testing" in sys.argv:
 
-    loader = Loader(model_name="CNNx3_2000e", input_path=os.path.join(os.path.dirname(__file__), "Models"))
+    loader = Loader(model_name=f"CNNx3_{num_epochs}e", input_path=os.path.join(os.path.dirname(__file__), "Models"))
     model = loader.getModel()
 
     tester = Tester(model=model, train_dataloader=train_dataloader, test_dataloader=test_dataloader)
@@ -53,8 +53,9 @@ if __name__ == "__main__" and "testing" in sys.argv:
 
 # %% IMPORTABLE
 
-loader = Loader(model_name="CNNx3_1000e", input_path=os.path.join(os.path.dirname(__file__), "Models"))
+loader = Loader(model_name=f"CNNx3_{num_epochs}e", input_path=os.path.join(os.path.dirname(__file__), "Models"))
 model = loader.getModel()
+print(f"Model CNNx3_{num_epochs}e in use.")
 def decideMove(agent_map, x_robot, y_robot):
 
     x_robot = np.array([x_robot])

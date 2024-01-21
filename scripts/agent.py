@@ -24,7 +24,7 @@ import numpy as np
 import random
 import os
 import torch
-from AI.nn_main import decideMove
+from AI.nn_main import decideMove, ConnectedNNx3
 
 class Agent:
     """ Class that implements the behaviour of each agent based on their perception and communication with other agents """
@@ -335,25 +335,26 @@ class Agent:
             DESCRIPTION: Direction to take
 
         """
-        x_robot = np.array([x_robot])
-        y_robot = np.array([y_robot])
-        eval_tensor = np.concatenate((y_robot, x_robot, agent_map.flatten()))
-        eval_tensor = torch.from_numpy(eval_tensor).float().unsqueeze(0)
-        in_channels=len(eval_tensor)
-        output_size=5
+        # x_robot = np.array([x_robot])
+        # y_robot = np.array([y_robot])
+        # eval_tensor = np.concatenate((y_robot, x_robot, agent_map.flatten()))
+        # eval_tensor = torch.from_numpy(eval_tensor).float().unsqueeze(0)
+        # in_channels=len(eval_tensor)
+        # output_size=5
 
         #try:
-        model = LayeredNN(input_size=in_channels, output_size=output_size)
-        model.load_state_dict(torch.load(f"{self.output_model_path}/LayeredNN_1000e.pth"))
+        # model = LayeredNN(input_size=in_channels, output_size=output_size)
+        # model.load_state_dict(torch.load(f"{self.output_model_path}/LayeredNN_1000e.pth"))
             # model_loaded = "Currently trained model used "
         #except:
             #raise ImportError("Can't find/load/fit NN weights")
 
-        model.eval()
-        with torch.no_grad():
+        # model.eval()
+        # with torch.no_grad():
 
-            prediction = torch.argmax(model(eval_tensor), dim=1).numpy()
+        #     prediction = torch.argmax(model(eval_tensor), dim=1).numpy()
 
+        prediction = decideMove(x_robot=x_robot, y_robot=y_robot, agent_map=agent_map)
         return prediction    
     
         
@@ -707,7 +708,8 @@ class Agent:
                     time.sleep(self.delta_T)    
 
                 # Choosing next direction to explore
-                next_direction = decideMove(self.agent_map, self.position_n[1], self.position_n[0])
+                next_direction = decideMove(self.agent_map+np.random.randn(*self.agent_map.shape)*0.01, self.position_n[1], self.position_n[0])
+                print(next_direction)
                 next_direction += 1
                 if next_direction == 1:
                     next_direction = 3
@@ -715,7 +717,6 @@ class Agent:
                     next_direction = 4
                 elif next_direction == 4:
                     next_direction = 1
-                
                 
                 
                 self.direction = next_direction

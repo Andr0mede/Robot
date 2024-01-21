@@ -3,29 +3,32 @@ import random
 
 def generateTrainingExample(flatten=True):
 
-    map = np.round(np.random.randint(low=-1, high=0, size=(20, 20)))
+    if np.random.randint(0, 2):
+        map = np.round(np.random.randint(low=-1, high=1, size=(20, 20)))
+    else:
+        map = np.round(np.ones((20, 20))*(-1))
 
     # Generate a few 0.3f
     for k in range(4):
-        x_target = np.random.randint(low=0, high=19)
-        y_target = np.random.randint(low=0, high=19)
+        x_target = np.random.randint(low=0, high=20)
+        y_target = np.random.randint(low=0, high=20)
         map[y_target, x_target] = 0.3
 
     # Generate a few 0.5
     for k in range(3):
-        if random.randint(0, 1):
-            x_target = np.random.randint(low=0, high=19)
-            y_target = np.random.randint(low=0, high=19)
+        if np.random.randint(0, 2):
+            x_target = np.random.randint(low=0, high=20)
+            y_target = np.random.randint(low=0, high=20)
             map[y_target, x_target] = 0.5
 
-    if random.randint(0, 1):
+    if np.random.randint(0, 2):
         # Generate a 1
-        x_target = np.random.randint(low=0, high=19)
-        y_target = np.random.randint(low=0, high=19)
+        x_target = np.random.randint(low=0, high=20)
+        y_target = np.random.randint(low=0, high=20)
         map[y_target, x_target] = 1
 
-    x_robot = np.random.randint(low=0, high=19)
-    y_robot = np.random.randint(low=0, high=19)
+    x_robot = np.random.randint(low=0, high=20)
+    y_robot = np.random.randint(low=0, high=20)
 
 
     delta_x = x_target - x_robot
@@ -41,7 +44,7 @@ def generateTrainingExample(flatten=True):
             move=3 # On va à gauche
         else:
             move=1 # On va à droite
-
+    
     move = np.array([move])
     x_robot = np.array([x_robot])
     y_robot = np.array([y_robot])
