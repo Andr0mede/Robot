@@ -41,7 +41,7 @@ class Agent:
         cell_val = env_conf["cell_val"] #value of the cell the agent is located in
         Thread(target=self.msg_cb, daemon=True).start()
         
-        #TODO: DEINE YOUR ATTRIBUTES HERE
+        #DEINE YOUR ATTRIBUTES HERE
         self.exploration_mode = True
         self.points_of_interest = [] # tuple with y, x, owner id, and type
         self.position_n = (self.y, self.x)
@@ -86,7 +86,7 @@ class Agent:
         if self.debug_mode:
             print('I retrieve nb of agent')
         time.sleep(0.5)
-        # Choosing strategy
+        # TODO: Choosing strategy
         self.strategy2()
 
     def msg_cb(self): 
@@ -319,42 +319,7 @@ class Agent:
             # Deducing direction          
             print('I finally choose a random direction')
         return self.deduceDirection(robot_place, to_go)
-    
-    
-    def chooseDirectionAI(self, agent_map, x_robot, y_robot):
-        """
-        This function allows to the agent to choose the direction with the AI 
-        to take after a moove. It takes no argument and return a string
-        containing direction
 
-        Returns
-        -------
-        TYPE: String
-            DESCRIPTION: Direction to take
-
-        """
-        # x_robot = np.array([x_robot])
-        # y_robot = np.array([y_robot])
-        # eval_tensor = np.concatenate((y_robot, x_robot, agent_map.flatten()))
-        # eval_tensor = torch.from_numpy(eval_tensor).float().unsqueeze(0)
-        # in_channels=len(eval_tensor)
-        # output_size=5
-
-        #try:
-        # model = LayeredNN(input_size=in_channels, output_size=output_size)
-        # model.load_state_dict(torch.load(f"{self.output_model_path}/LayeredNN_1000e.pth"))
-            # model_loaded = "Currently trained model used "
-        #except:
-            #raise ImportError("Can't find/load/fit NN weights")
-
-        # model.eval()
-        # with torch.no_grad():
-
-        #     prediction = torch.argmax(model(eval_tensor), dim=1).numpy()
-
-        prediction = decideMove(x_robot=x_robot, y_robot=y_robot, agent_map=agent_map)
-        return prediction    
-    
         
     def updatePoIMap(self):
         """
@@ -665,16 +630,10 @@ class Agent:
             #####  FIRST PHASE  #####
             while not self.checkPOI():
                 
-                # Updating values of n - 1
-                self.position_n1 = self.position_n
-                if self.debug_mode:
-                    print('I update n-1 pos')
-                
                 # Updating value of n and associated value
                 command = {"header": 1}
                 self.network.send(command)
                 time.sleep(self.delta_T)
-                self.value_n1 = self.value_n
                 self.value_n = self.getValue()
                 if self.debug_mode:
                     print('I update n pos')
@@ -715,7 +674,6 @@ class Agent:
                     next_direction = 4
                 elif next_direction == 4:
                     next_direction = 1
-                
                 
                 self.direction = next_direction
                 if self.debug_mode:

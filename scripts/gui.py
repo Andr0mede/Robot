@@ -16,7 +16,8 @@ class GUI:
         if not safe_mode:
             pygame.mixer.init()
             pygame.mixer.music.load(img_folder + "/wide_putin_music.ogg")
-            pygame.mixer.music.play()
+            pygame.mixer.music.set_volume(0.5)
+            pygame.mixer.music.play(-1)
             
         self.frame1 = True
         self.game = game
